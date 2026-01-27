@@ -89,7 +89,6 @@ export const StarBackground = () => {
               height: `${meteor.size}px`,
               left: `${meteor.x}%`,
               top: `${meteor.y}%`,
-              animationDelay: `${meteor.delay}s`,
               animationDuration: `${meteor.animationDuration}s`
             }}
           />   
