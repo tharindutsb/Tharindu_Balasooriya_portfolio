@@ -1,20 +1,28 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home } from "./pages/home";
-import { NotFound } from './pages/NotFound';
+import {Hero} from "@/sections/Hero";
+import {About} from "@/sections/About";
+import {Experience} from "@/sections/Experience";
+import {Projects} from "@/sections/Projects";
+import {Testimonials} from "@/sections/Testimonials";
+import {Contact} from "@/sections/Contact";
+import {Navbar} from "@/layout/Navbar";
+
 
 function App() {
  
 
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="*" element={<NotFound />}/>
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
+    <div className="min-h-screen overflow-x-hidden">
+      <Navbar/>
+      <main>
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Testimonials />
+        <Contact />
+      </main> 
+      </div>
+  );
 }
 
 export default App

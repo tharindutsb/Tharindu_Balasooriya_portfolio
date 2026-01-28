@@ -1,140 +1,71 @@
 @import "tailwindcss";
 
-@theme{
-  --color-border: hsl(var(--border));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
+/* stylelint-disable-next-line at-rule-no-unknown */
+@theme {
+  --color-background: #0f1418;
+  --color-foreground: #f0f2f5;
 
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground)); 
+  --color-card: #1c2228;
 
-  --color-card: hsl(var(--card));
+  --color-primary: #20b2a6;
+  --color-primary-foreground: #ffffff;
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse:subtle:pulse-subtle 4s ease-in-out infinite;
-  --animate-fade-in: fade-in 0.7s ease-out forwards;
-  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
-  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
-  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
-  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
-  --animate-meteor:meteor 5s linear infinite;
+  --color-secondary: #1f2830;
+  --color-secondary-foreground: #20b2a6;
 
-  @keyframes float{
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  @keyframes pulse-subtle{
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
-  }
-  @keyframes fade-in{
-   from { 
-    opacity: 0; 
-    transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes meteor{
-    0% {
-      transform:rotate(215deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(215deg) translateX(-500px);
-      opacity: 0;
-    }
-  }
+  --color-muted: #252e37;
+  --color-muted-foreground: #7a8491;
+
+  --color-border: #242b32;
+
+  --radius: 0.75rem;
+
+  --color-highlight: #f5a623;
+  --color-surface: #1a2329;
 
 }
 
 @layer base {
-  :root{
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-    
-    --card: 0 0% 100%;
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-  }
-  .dark{
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
-
-    --card: 222 47% 8%;
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
-    --border: 217 33% 20%;
-  }
-  *{
-    @apply border-border;
-  }
   html{
-      @apply scroll-smooth;
+    scroll-behavior: smooth;
   }
   body{
-    @apply bg-background text-foreground transition-colors duration-300;
-    font-feature-settings: "rlig" 1 , "calt" 1 ;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: 'Inter', sans-serif;
   }
-}
-@utility container{
-  margin-inline:auto;
-  padding-inline:2rem;
-
-  @media (width >= 640px){
-    max-width:640px;
-  }
-  @media (width >= 768px){
-    max-width:768px;
-  }
-  @media (width >= 1024px){
-    max-width:1024px;
-  }
-  @media (width >= 1280px){
-    max-width:1280px;
-  }
-  @media (width >= 1536px){
-    max-width:1536px;
+  .font-serif{
+    font-family: 'Playfair Display', serif;
   }
 }
 
-@utility text-glow{
-  @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+@layer components{
+  .glass{
+    background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+    backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, var(--color-border)50%, transparent);
+  }
+  .glass-strong{
+    background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    backdrop-filter: blur(24px);
+    border: 1px solid color-mix(in srgb, var(--color-border)60%, transparent);
+  }
 }
+@layer utilities {
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+      filter:blur(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter:blur(0);
+    }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out both; 
+  }
 
-@utility card-hover{
-  @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
-}
-
-@utility gradient-border{
-  @apply relative rounded-md;
-  background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
-  background-clip: padding-box;
-  border: 1px solid transparent;
-}
-
-@utility cosmic-button{
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-  hover:scale-105 active:scale-95;
-
-}
-@utility star{
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-
-}
-@utility meteor{
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
-  animation: meteor 5s linear infinite;
-}
-
-#root{
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
 }
