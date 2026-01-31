@@ -1,7 +1,31 @@
 import {Button} from "@/components/Button";  
-import { ArrowRight, Facebook, Github, Linkedin } from "lucide-react";
+import { ArrowRight, ChevronDown ,Facebook, Github, Linkedin } from "lucide-react";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 
+
+const skills = [
+  "Python",
+  "Java",
+  "HTML",
+  "Flutter",
+  "MongoDB",
+  "SQL",
+  "Tailwind CSS",
+  "GitHub Actions",
+  "Docker",
+  "Django",
+  "AWS",
+  "JavaScript",
+  "React",
+   "Node.js", 
+   "Figma",
+   "Postman",
+   "Flask",
+   "FastAPI",
+   "Machine Learning",
+   "AI Integration",
+
+];
 export const Hero = () => {
   return (  
     <section className="relative min-h-screen flex items-center overflow-hidden"> 
@@ -98,6 +122,30 @@ export const Hero = () => {
             </div>
         </div>
       </div>
+      {/* skills section */}
+      <div className="mt-20 animate-fade-in animation-delay-600">
+        <p className="text-sm text-muted-foreground mb-6 text-center animate-fade-in animation-delay-500">Technologies I work with:</p>
+        <div className="overflow-x-hidden">
+          <div className="flex animate-marquee">
+            {[...skills,...skills].map((skill, idx) => (
+              <div key={idx} className="px-8 py-2  flex-shrink-0 ">
+                <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors ">{skill}</span>
+              </div>
+            ))}
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in animation-delay-800">
+            <a href="#about" className="flex flex-col items-center gap-2 text-foreground/30 ">
+              <span className="text-xs uppercase tracking-wider" >
+                Scroll
+                <div className="flex flex-col items-center">
+                  <ChevronDown className="w-6 h-6 mt-1 animate-bounce"/>
+                </div>
+                
+              </span>
+            </a>
     </div>
     </section>
   )
