@@ -106,7 +106,7 @@ export const Hero = () => {
                 <img 
                   src="/profile-photo.jpg" 
                   alt="Tharindu Balasooriya" 
-                  className="w-full aspect-[4/5] object-cover rounded-2xl"
+                  className="w-full h-full aspect-[4/5] object-cover rounded-2xl"
                 />
 
                 {/* Floating Badge  */}
