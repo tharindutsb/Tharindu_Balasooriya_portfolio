@@ -56,7 +56,7 @@ export const Hero = () => {
         <div className="space-y-8">
           <div className="animate-fade-in">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary ">
-            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"/>Software Engineer • Fullstack Developer
+            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"/>Software Engineer • Developer
             </span>
           </div>
           {/* headline */}
@@ -96,7 +96,7 @@ export const Hero = () => {
         {/* right column - profile image */}
         <div className="relative animate-fade-in animation-delay-300">
           {/* Profile Image */}
-          <div className="relative max-w-md mx-auto">
+          <div className=" relative max-w-md mx-auto  ">
             <div className="absolte inset-0
             rounded-3xl bg-gradient-to-br 
             from-primary/30 via-transparent to-primary/10 blur-2xl animate-pulse"/>

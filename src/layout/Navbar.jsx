@@ -3,10 +3,10 @@ import {Menu,X} from "lucide-react";
 import {useState, useEffect} from "react";
 
 const navLinks = [
-  { href: "about", label: "About" },
-  { href: "projects", label: "Projects" },
-  { href: "experience", label: "Experience" },
-  { href: "testimonials", label: "Testimonials" }
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#experience", label: "Experience" },
+  { href: "#testimonials", label: "Testimonials" }
 ];
 
 export const Navbar = () => {
@@ -60,11 +60,12 @@ export const Navbar = () => {
             <div className="container mx-auto px-6 flex flex-col py-6 gap-4">
                 {navLinks.map((link,index) => (
               <a href={link.href} key={index} 
+              onClick={() => setIsMobileMenuOpen(false)}
               className="text-lg text-muted-foreground hover:text-foreground py-2"
               >{link.label}</a>
             ))}
             
-            <Button>
+            <Button onClick={() => setIsMobileMenuOpen(false)}>
                Contact Me
              </Button>
             </div>
