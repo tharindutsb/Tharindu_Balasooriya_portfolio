@@ -1,6 +1,7 @@
 import {Button} from "@/components/Button";  
-import { ArrowRight, ChevronDown ,Facebook, Github, Linkedin, Download} from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronUp, Facebook, Github, Linkedin, Download} from "lucide-react";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
+import { useState, useEffect } from "react";
 
 
 const skills = [
@@ -27,6 +28,29 @@ const skills = [
 ];
 
 export const Hero = () => {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if scrolled past hero section (approx 80vh)
+      const heroHeight = window.innerHeight * 0.8
+      setIsScrolled(window.scrollY > heroHeight)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const scrollToNext = () => {
+    const aboutSection = document.getElementById("about")
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
   return (  
     <section className="relative min-h-screen flex items-center overflow-hidden"> 
       {/* bg */}
@@ -107,7 +131,7 @@ export const Hero = () => {
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-primary/10 blur-2xl animate-pulse"/>
               <div className="relative glass rounded-3xl p-2 glow-border">
                 <img 
-                  src="/profile-photo.jpg" 
+                  src="profile-photo.jpg" 
                   alt="Tharindu Balasooriya" 
                   className="w-full h-full aspect-[4/5] object-cover rounded-2xl"
                 />
@@ -145,7 +169,7 @@ export const Hero = () => {
         </div>
       </div>
       
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in animation-delay-800">
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in animation-delay-800 flex flex-col items-center gap-4">
         <a href="#about" className="flex flex-col items-center gap-2 text-foreground/30 ">
           <span className="text-xs uppercase tracking-wider" >
             Scroll
