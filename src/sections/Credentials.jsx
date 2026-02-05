@@ -8,7 +8,7 @@ const credentials = [
     type: "Transcript",
     date: "2021 - 2025",
     description: "This official academic transcript highlights my GPA and coursework in Software Engineering, through which I earned Second Upper Class Honours.",
-    images: ["testimonials_resourses/transcript1.jpg", "testimonials_resourses/transcript2.jpg"],
+    images: ["Credentials_Resourses/transcript1.jpg", "Credentials_Resourses/transcript2.jpg"],
   },
   {
     title: "Campus Letter",
@@ -24,7 +24,7 @@ const credentials = [
     type: "Certification",
     date: "2023",
     description: "Professional certification from SLT acknowledging technical competency.",
-    images: ["testimonials_resourses/transcript1.jpg", "testimonials_resourses/transcript2.jpg"],
+    images: ["Credentials_Resourses/SLT_Certification.jpg"],
   },
   {
     title: "Academic Certificate",
