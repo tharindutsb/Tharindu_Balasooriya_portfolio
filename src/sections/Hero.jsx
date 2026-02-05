@@ -68,7 +68,7 @@ export const Hero = () => {
             {/* Name & Title */}
             <div className="space-y-3 animate-fade-in animation-delay-100">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-                Hi, I'm <span className="text-primary glow-text">Tharindu</span>
+                Hi, I'm <span className="text-primary glow-text">Tharindu </span>
               </h1>
               <p className="text-lg md:text-xl text-secondary-foreground font-semibold">
                 Full-Stack Developer & Software Engineer
@@ -118,40 +118,12 @@ export const Hero = () => {
 
           {/* Right Column - Profile Image */}
           <div className="flex justify-center md:justify-end order-1 md:order-2 animate-fade-in animation-delay-200">
-            <div className="relative w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64">
-              {/* Animated Border Effect */}
-              <svg
-                className="absolute inset-0 w-full h-full"
-                style={{ 
-                  animation: "spin 6s linear infinite",
-                  filter: "drop-shadow(0 0 20px rgba(92, 182, 172, 0.3))"
-                }}
-                viewBox="0 0 100 100"
-              >
-                <defs>
-                  <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#20b2a6" stopOpacity="1" />
-                    <stop offset="50%" stopColor="#20b2a6" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#20b2a6" stopOpacity="1" />
-                  </linearGradient>
-                </defs>
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="48"
-                  fill="none"
-                  stroke="url(#borderGradient)"
-                  strokeWidth="2"
-                  strokeDasharray="300"
-                  strokeDashoffset="0"
-                />
-              </svg>
-
+            <div className="profile-border-animated relative w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 flex items-center justify-center">
               {/* Glow Background */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 via-transparent to-primary/10 blur-2xl animate-pulse" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 via-transparent to-primary/10 blur-3xl" />
 
               {/* Glass Container */}
-              <div className="relative w-full h-full glass rounded-full p-2 glow-border overflow-hidden border-2 border-primary/50">
+              <div className="relative w-full h-full glass rounded-full p-2 overflow-hidden">
                 <img
                   src="/profile-photo.jpg"
                   alt="Tharindu Balasooriya"
@@ -190,7 +162,7 @@ export const Hero = () => {
       {/* Smart Scroll Button */}
       <button
         onClick={isNearEnd ? scrollToTop : scrollToNext}
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in animation-delay-800 flex flex-col items-center gap-2 px-4 py-3 rounded-lg glass hover:bg-primary/20 hover:text-primary transition-all duration-300 group"
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in animation-delay-800 flex flex-col items-center gap-2 px-4 py-3 rounded-lg  hover:text-primary transition-all duration-300 group"
         title={isNearEnd ? "Go to top" : "Scroll to next section"}
       >
         <span className="text-xs uppercase tracking-wider font-semibold text-foreground/70 group-hover:text-primary transition-colors">
