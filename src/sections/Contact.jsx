@@ -92,26 +92,26 @@ export const Contact = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mx-auto max-w-3xl mb-16">
-          <span className="text-secondary-foreground text-sm font-bold tracking-wider uppercase animate-fade-in">
+        <div className="text-center mx-auto max-w-3xl mb-12 sm:mb-16">
+          <span className="text-secondary-foreground text-xs sm:text-sm font-bold tracking-wider uppercase animate-fade-in">
             Get In Touch
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
             Let's Build
             <span className="font-serif italic font-normal text-white"> something amazing together</span>
           </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
+          <p className="text-sm sm:text-base text-muted-foreground animate-fade-in animation-delay-200">
             Have a project in mind or just want to say hi? I'm always open to new opportunities and collaborations.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto animate-fade-in animation-delay-200">
           {/* Contact Form */}
-          <div className="glass rounded-2xl overflow-hidden p-8 md:p-10 animate-fade-in animation-delay-300">
+          <div className="glass rounded-2xl overflow-hidden p-6 sm:p-8 md:p-10 animate-fade-in animation-delay-300 order-2 md:order-1">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input */}
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold mb-3 text-foreground">
+                <label htmlFor="name" className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-foreground">
                   Full Name
                 </label>
                 <input
@@ -122,13 +122,13 @@ export const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="Your Name"
-                  className="w-full px-4 py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none text-sm sm:text-base"
                 />
               </div>
 
               {/* Email Input */}
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold mb-3 text-foreground">
+                <label htmlFor="email" className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-foreground">
                   Email Address
                 </label>
                 <input
@@ -139,13 +139,13 @@ export const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
-                  className="w-full px-4 py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none text-sm sm:text-base"
                 />
               </div>
 
               {/* Message Input */}
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold mb-3 text-foreground">
+                <label htmlFor="message" className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-foreground">
                   Message
                 </label>
                 <textarea
@@ -156,7 +156,7 @@ export const Contact = () => {
                   rows={5}
                   required
                   placeholder="Your message here..."
-                  className="w-full px-4 py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none resize-none"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none resize-none text-sm sm:text-base"
                 />
               </div>
 
@@ -164,7 +164,7 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full px-6 py-3 bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-primary-foreground font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group"
+                className="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-primary-foreground font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group text-sm sm:text-base"
               >
                 {isLoading ? (
                   <>
@@ -195,7 +195,7 @@ export const Contact = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-6 animate-fade-in animation-delay-400">
+          <div className="space-y-4 sm:space-y-6 animate-fade-in animation-delay-400 order-1 md:order-2">
             {ContactInfo.map((item, index) => {
               const Icon = item.icon
               return (
@@ -204,26 +204,26 @@ export const Contact = () => {
                   href={item.href}
                   target={item.label === "Location" ? "_blank" : undefined}
                   rel={item.label === "Location" ? "noopener noreferrer" : undefined}
-                  className="group glass rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 flex items-start gap-4 cursor-pointer"
+                  className="group glass rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-primary/50 transition-all duration-300 flex items-start gap-3 sm:gap-4 cursor-pointer"
                 >
-                  <div className="p-3 rounded-lg bg-primary/20 group-hover:bg-primary/30 transition-colors">
-                    <Icon className="w-6 h-6 text-primary" />
+                  <div className="p-2 sm:p-3 rounded-lg bg-primary/20 group-hover:bg-primary/30 transition-colors flex-shrink-0">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-foreground mb-1">{item.label}</h3>
-                    <p className="text-muted-foreground group-hover:text-secondary-foreground transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">{item.label}</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground group-hover:text-secondary-foreground transition-colors break-words">
                       {item.value}
                     </p>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
                 </a>
               )
             })}
 
             {/* Additional CTA */}
-            <div className="glass rounded-2xl p-6 border border-primary/30 bg-primary/5 animate-fade-in animation-delay-500">
-              <h3 className="text-lg font-semibold text-foreground mb-2">Prefer Direct Chat?</h3>
-              <p className="text-muted-foreground mb-4">
+            <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-primary/30 bg-primary/5 animate-fade-in animation-delay-500">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Prefer Direct Chat?</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Connect with me on social media or reach out via any platform that's most convenient for you.
               </p>
             </div>
