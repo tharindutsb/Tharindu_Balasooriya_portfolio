@@ -18,20 +18,20 @@ const projects = [
     github: "https://github.com/tharindutsb/menstrual_health_app",
   },
   {
-    title: "Project 3",
-    description: "Server-side project with REST APIs and authentication.",
-    image: "/projects/project3.png",
-    tag: ["Node","Express","MongoDB"],
-    link: "#",
-    github: "#",
+    title: "AI-Based Nutrient Detection in Paddy Crops (Ongoing Project)",
+    description: "A computer vision–based system for identifying NPK nutrient deficiencies and excesses in paddy plants. Built using deep learning and image processing techniques to support smart agriculture and optimized fertilizer usage.",
+    image: "/projects/AI-Based_NPK_detection.png",
+    tag: ["Python","TensorFlow","OpenCV","Pandas","NumPy"],
+    // link: "#",
+    github: "https://github.com/tharindutsb",
   },
   {
-    title: "Project 4",
-    description: "Mobile-first application with offline support.",
-    image: "/projects/project4.png",
-    tag: ["Flutter","Python","FastAPI"],
-    link: "#",
-    github: "#",
+    title: "Smart Baby Cradle",
+    description: "This project introduces a smart cradle system that automates baby monitoring using Arduino, NodeMCU, and the Blynk IoT platform. It detects baby movement and sends real-time notifications to parents, ensuring peace of mind and enhanced safety for infants.",
+    image: "/projects/smart_baby_cradle.png",
+    tag: ["Arduino","NodeMCU","Blynk IoT"],
+    // link: "#",
+    github: "https://github.com/tharindutsb/Smart-Baby-Cradle-IOT-project",
   },
 ]
 
@@ -96,7 +96,7 @@ export const Projects = () => {
             </div>
               {/* view all CTA */}
               <div className="text-center mt-12 animate-fade-in animation-delay-500 ">
-                <AnimatedBorderButton>
+                <AnimatedBorderButton className="group" onClick={() => window.open("https://github.com/tharindutsb", "_blank")}>
                 View All Projects
                 <ArrowUpRight className="w-5 h-5"/>
               </AnimatedBorderButton>
