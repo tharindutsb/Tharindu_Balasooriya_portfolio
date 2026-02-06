@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button"
-import { ArrowRight, ChevronDown, ChevronUp, Github, Linkedin, Twitter, Download } from "lucide-react"
+import { ArrowRight, ChevronDown, ChevronUp, Github, Linkedin, Download, Facebook } from "lucide-react"
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton"
 import { useState, useEffect } from "react"
 
@@ -74,7 +74,7 @@ export const Hero = () => {
                 Full-Stack Developer & Software Engineer
               </p>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                I craft efficient, scalable web applications with expertise in frontend and backend development. Passionate about building digital experiences that drive success.
+                I craft efficient, scalable web applications with expertise in frontend, backend development and AI integration. Passionate about building digital experiences that drive success.
               </p>
             </div>
 
@@ -83,7 +83,19 @@ export const Hero = () => {
               <Button size="lg" className="group">
                 Get In Touch <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <AnimatedBorderButton>
+              <AnimatedBorderButton
+                onClick={() => {
+                  const url = "/CV/T.S.Balasooriya_CV.pdf"
+                  const a = document.createElement("a")
+                  a.href = url
+                  a.download = "T.S.Balasooriya_CV.pdf"
+                  a.target = "_blank"
+                  a.rel = "noopener noreferrer"
+                  document.body.appendChild(a)
+                  a.click()
+                  a.remove()
+                }}
+              >
                 <Download className="w-5 h-5" />
                 Download CV
               </AnimatedBorderButton>
@@ -94,9 +106,9 @@ export const Hero = () => {
               <span className="text-sm text-muted-foreground font-semibold">Follow Me:</span>
               <div className="flex gap-3">
                 {[
-                  { icon: Github, href: "https://github.com", label: "GitHub" },
-                  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+                  { icon: Github, href: "https://github.com/tharindutsb", label: "GitHub" },
+                  { icon: Linkedin, href: "https://www.linkedin.com/in/tharindu-balasooriya-4719b722b/", label: "LinkedIn" },
+                  { icon: Facebook, href: "https://www.facebook.com/tharindu.balasooriya.58", label: "Facebook" },
                 ].map((social, idx) => {
                   const Icon = social.icon
                   return (
@@ -118,14 +130,14 @@ export const Hero = () => {
 
           {/* Right Column - Profile Image */}
           <div className="flex justify-center md:justify-end order-1 md:order-2 animate-fade-in animation-delay-200">
-            <div className="profile-border-animated relative w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 flex items-center justify-center">
+            <div className="profile-border-animated relative w-50 h-50 md:w-62 md:h-62 lg:w-74 lg:h-74 flex items-center justify-center">
               {/* Glow Background */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 via-transparent to-primary/10 blur-3xl" />
 
               {/* Glass Container */}
               <div className="relative w-full h-full glass rounded-full p-2 overflow-hidden">
                 <img
-                  src="/profile-photo.jpg"
+                  src="/profile-photoblack.jpg"
                   alt="Tharindu Balasooriya"
                   className="w-full h-full object-cover rounded-full"
                 />

@@ -11,29 +11,22 @@ const credentials = [
     images: ["Credentials_Resourses/transcript1.jpg", "Credentials_Resourses/transcript2.jpg"],
   },
   {
-    title: "Campus Letter",
-    institution: "University of Colombo",
-    type: "Letter",
-    date: "2024",
-    description: "Official letter from campus administration certifying my achievements and enrollment.",
-    images: ["/path-to-your-campus-letter.jpg"],
+    title: "DRS project appreciation letter",
+    institution: "Sri Lanka Telecom (SLT)",
+    type: "Appreciation Letter",
+    date: "2025",
+    description: "I received an appreciation letter from Sri Lanka Telecom (SLT) for my contributions to the Debt Recovery System project, recognizing my dedication and impact on the project’s success.",
+    images: ["Credentials_Resourses/SLT_appreciation_letter.jpg"],
   },
   {
-    title: "SLT Certification",
-    institution: "Sri Lanka Telecom",
+    title: "SLTC Degree Certification",
+    institution: "Sri Lanka Technological Campus",
     type: "Certification",
-    date: "2023",
-    description: "Professional certification from SLT acknowledging technical competency.",
-    images: ["Credentials_Resourses/SLT_Certification.jpg"],
+    date: "2025",
+    description: "This official degree certificate from Sri Lanka Technological Campus confirms the successful completion of my Bachelor of Science (BSc) in Software Engineering, awarded with Second Upper Class Honours.",
+    images: ["Credentials_Resourses/degree_certificate.jpg"],
   },
-  {
-    title: "Academic Certificate",
-    institution: "University of Colombo",
-    type: "Certificate",
-    date: "2024",
-    description: "Official academic achievement certificate with honors distinction.",
-    images: ["/path-to-your-certificate.jpg"],
-  },
+
 ]
 
 export const Credentials = () => {

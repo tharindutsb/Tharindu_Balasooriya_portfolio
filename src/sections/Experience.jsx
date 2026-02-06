@@ -10,10 +10,10 @@ const experiences = [
   },
     {
     period: "June 2021 – December 2025",
-    role: "Undergraduate Software Engineer",
+    role: "Bachelor of Science (BSc) in Software Engineering",
     company: "Sri Lanka Technological Campus",
-    description: "Worked as an Intern / Trainee Software Engineer at Sri Lanka Telecom (SLT – Head Office), contributing to enterprise systems including a Debt Recovery System and an Incident Management platform. Built backend APIs, data pipelines, and full-stack features using Python, FastAPI, and the MERN stack to support real-world business workflows.",
-    technologies: ["React", "Node.js", "Express", "Python", "FastAPI", "SQL", "MongoDB", "REST APIs", "Swagger", "Postman", "Git"],
+    description: "Pursuing a Bachelor of Science (BSc) in Software Engineering at Sri Lanka Technological Campus, where I have developed a strong foundation in software development principles, algorithms, data structures, and system design. My academic journey has been enriched with hands-on projects and internships that have allowed me to apply theoretical knowledge to real-world scenarios, further fueling my passion for building impactful software solutions.",
+    technologies: ["Python", "Java", "JavaScript", "C", "Flutter", "MongoDB", "SQL", "AWS", "Machine Learning", "AI Integration", "Data Structures", "Algorithms", "System Design", "Git", "Agile Methodologies", "Team Collaboration", "Problem Solving", "Critical Thinking", "Communication Skills", "Time Management", "Adaptability", "Continuous Learning", "Project Management", "Version Control", "Testing and Debugging", "Software Development Lifecycle (SDLC)", "Object-Oriented Programming (OOP)", "Functional Programming", "Database Management", "Cloud Computing", "DevOps Practices"],
     current: false,
   },
 ]
@@ -27,9 +27,10 @@ export const Experience = () => {
         {/* Section Header */}
         <div className="max-w-3xl mb-16 ">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">Career Journey</span>
-          <h2 className="text-3xl md:text-4xl font-bold leading-tight animate-fade-in delay-100 text-secondary-foreground mt-4 mb-6">Experience proven 
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight animate-fade-in delay-100 text-secondary-foreground mt-4 mb-6"> 
+            My Experience proven 
             
-            <span className="font-serif italic font-normal text-white">through real solutions.</span></h2>
+            <span className="font-serif italic font-normal text-white"> through real solutions.</span></h2>
 
           <p className="text-muted-foreground animate-fade-in animation-delay-200">
               My career journey is shaped by hands-on experience building real-world applications, solving practical problems, and delivering reliable solutions. Each role has strengthened my skills, confidence, and passion for creating products that truly make an impact.

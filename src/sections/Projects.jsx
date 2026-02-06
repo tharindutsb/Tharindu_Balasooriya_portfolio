@@ -2,20 +2,20 @@ import { ArrowUpRight, Github } from "lucide-react"
 import {AnimatedBorderButton} from "@/components/AnimatedBorderButton"
 const projects = [
   {
-    title: "Ceylon Trails",
+    title: "📍 Ceylon Trails",
     description: "Ceylon Trails is an AI-powered travel assistant that creates personalized, time-optimized itineraries for exploring Sri Lanka comfortably and efficiently.",
-    image: "/projects/ceylon_trails.png",
+    image: "/projects/ceylon_trails.jpg",
     tag: ["Flutter","Python","FastAPI","Machine Learning","Pandas","NumPy"],
-    link: "#",
-    github: "#",
+    // link: "#",
+    github: "https://github.com/tharindutsb/ceylon_trails_frontend_latest",
   },
   {
-    title: "Project 2",
-    description: "A sample project demonstrating interactive UI and responsive design.",
-    image: "/projects/project2.png",
-    tag: ["React","Tailwind","Vite"],
-    link: "#",
-    github: "#",
+    title: " 🩺 Menstrual Health Checker App",
+    description: "An AI-powered mobile app that helps women monitor menstrual health, predict anomalies, and classify possible conditions using Machine Learning.",
+    image: "/projects/Menstrual_Health_App.png",
+    tag: ["Flutter ","Flask ","Python ","Machine Learning","Scikit-Learn","Pandas"],
+    // link: "#",
+    github: "https://github.com/tharindutsb/menstrual_health_app",
   },
   {
     title: "Project 3",
@@ -65,9 +65,12 @@ export const Projects = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transport opacity-60"/>
                       {/* overlay link */}
                       <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href={project.link} className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all">
+
+                        {/* project link added here later */}
+
+                        {/* <a href={project.link} className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all">
                           <ArrowUpRight className="w-5 h-5 "/>
-                        </a>
+                        </a> */}
                         <a href={project.github} className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all">
                           <Github className="w-5 h-5 "/>
                         </a>

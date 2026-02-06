@@ -34,7 +34,7 @@ export const Footer = () => {
             <div>
               <h3 className="text-2xl font-bold text-white mb-2">Tharindu</h3>
               <p className="text-muted-foreground text-sm">
-                Full-stack developer crafting digital solutions with passion and precision.
+                Full-Stack Developer & Software Engineer crafting impactful digital experiences.
               </p>
             </div>
             <div className="pt-4">
