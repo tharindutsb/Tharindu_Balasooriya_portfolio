@@ -2,6 +2,7 @@ import { ArrowUpRight, Github } from "lucide-react"
 import {AnimatedBorderButton} from "@/components/AnimatedBorderButton"
 const projects = [
   {
+    id: "ceylon-trails",
     title: "📍 Ceylon Trails",
     description: "Ceylon Trails is an AI-powered travel assistant that creates personalized, time-optimized itineraries for exploring Sri Lanka comfortably and efficiently.",
     image: "/projects/ceylon_trails.jpg",
@@ -10,6 +11,7 @@ const projects = [
     github: "https://github.com/tharindutsb/ceylon_trails_frontend_latest",
   },
   {
+    id: "menstrual-health",
     title: " 🩺 Menstrual Health Checker App",
     description: "An AI-powered mobile app that helps women monitor menstrual health, predict anomalies, and classify possible conditions using Machine Learning.",
     image: "/projects/Menstrual_Health_App.png",
@@ -18,6 +20,7 @@ const projects = [
     github: "https://github.com/tharindutsb/menstrual_health_app",
   },
   {
+    id: "npk-detection",
     title: "AI-Based Nutrient Detection in Paddy Crops (Ongoing Project)",
     description: "A computer vision–based system for identifying NPK nutrient deficiencies and excesses in paddy plants. Built using deep learning and image processing techniques to support smart agriculture and optimized fertilizer usage.",
     image: "/projects/AI-Based_NPK_detection.png",
@@ -26,6 +29,7 @@ const projects = [
     github: "https://github.com/tharindutsb",
   },
   {
+    id: "smart-baby-cradle",
     title: "Smart Baby Cradle",
     description: "This project introduces a smart cradle system that automates baby monitoring using Arduino, NodeMCU, and the Blynk IoT platform. It detects baby movement and sends real-time notifications to parents, ensuring peace of mind and enhanced safety for infants.",
     image: "/projects/smart_baby_cradle.png",
@@ -54,7 +58,7 @@ export const Projects = () => {
             {/* Projects Grid */}
             <div className="grid md:grid-cols-2 gap-8 animate-fade-in animation-delay-30">
               {projects.map((project,idx)=>(
-                  <div key={idx} className="group glass rounded-2xl overflow-hidden animate-fade-in md:row-span-1"
+                  <div key={project.id} className="group glass rounded-2xl overflow-hidden animate-fade-in md:row-span-1"
                   style={{
                     animationDelay:`${(idx + 1)*100 }ms`
                   }}
@@ -86,7 +90,7 @@ export const Projects = () => {
                         <p className="text-muted-foreground text-sm">{project.description}</p>
                         <div className="flex flex-wrap gap-2">
                           {(project.tag || []).map((tag, tagIdx) => (
-                           <span key={tagIdx} className="px-4 py-1.5 rounded-full bg-surface text-xs font-medium border-border/50 text-muted-foreground hover:border-primary/50">{tag}</span>
+                           <span key={`${project.id}-tag-${tagIdx}`} className="px-4 py-1.5 rounded-full bg-surface text-xs font-medium border-border/50 text-muted-foreground hover:border-primary/50">{tag}</span>
                           ))}
                         </div>
                         </div>

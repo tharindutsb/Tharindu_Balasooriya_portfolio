@@ -4,18 +4,18 @@ import { AnimatedBorderButton } from "@/components/AnimatedBorderButton"
 import { useState, useEffect } from "react"
 
 const skills = [
-  "Python",
-  "Java",
-  "JavaScript",
-  "React",
-  "Node.js",
-  "Flutter",
-  "MongoDB",
-  "SQL",
-  "Tailwind CSS",
-  "Docker",
-  "AWS",
-  "Machine Learning",
+  { id: "skill-python", name: "Python" },
+  { id: "skill-java", name: "Java" },
+  { id: "skill-js", name: "JavaScript" },
+  { id: "skill-react", name: "React" },
+  { id: "skill-node", name: "Node.js" },
+  { id: "skill-flutter", name: "Flutter" },
+  { id: "skill-mongo", name: "MongoDB" },
+  { id: "skill-sql", name: "SQL" },
+  { id: "skill-tailwind", name: "Tailwind CSS" },
+  { id: "skill-docker", name: "Docker" },
+  { id: "skill-aws", name: "AWS" },
+  { id: "skill-ml", name: "Machine Learning" },
 ]
 
 export const Hero = () => {
@@ -79,7 +79,7 @@ export const Hero = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-start gap-4 animate-fade-in animation-delay-300">
+            <div className="flex flex-row items-center gap-4 animate-fade-in animation-delay-300">
               <Button size="lg" className="group">
                 Get In Touch <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -106,14 +106,14 @@ export const Hero = () => {
               <span className="text-sm text-muted-foreground font-semibold">Follow Me:</span>
               <div className="flex gap-3">
                 {[
-                  { icon: Github, href: "https://github.com/tharindutsb", label: "GitHub" },
-                  { icon: Linkedin, href: "https://www.linkedin.com/in/tharindu-balasooriya-4719b722b/", label: "LinkedIn" },
-                  { icon: Facebook, href: "https://www.facebook.com/tharindu.balasooriya.58", label: "Facebook" },
-                ].map((social, idx) => {
+                  { id: "social-github", icon: Github, href: "https://github.com/tharindutsb", label: "GitHub" },
+                  { id: "social-linkedin", icon: Linkedin, href: "https://www.linkedin.com/in/tharindu-balasooriya-4719b722b/", label: "LinkedIn" },
+                  { id: "social-facebook", icon: Facebook, href: "https://www.facebook.com/tharindu.balasooriya.58", label: "Facebook" },
+                ].map((social) => {
                   const Icon = social.icon
                   return (
                     <a
-                      key={idx}
+                      key={social.id}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -160,9 +160,9 @@ export const Hero = () => {
           <div className="overflow-hidden">
             <div className="flex gap-4 animate-marquee">
               {[...skills, ...skills].map((skill, idx) => (
-                <div key={idx} className="flex-shrink-0">
+                <div key={`${skill.id}-${idx}`} className="flex-shrink-0">
                   <span className="px-4 py-2 glass rounded-lg text-sm font-medium text-muted-foreground hover:text-primary transition-colors whitespace-nowrap">
-                    {skill}
+                    {skill.name}
                   </span>
                 </div>
               ))}

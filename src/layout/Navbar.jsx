@@ -3,11 +3,11 @@ import {Menu,X} from "lucide-react";
 import {useState, useEffect} from "react";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#credentials", label: "Credentials" },
-  // { href: "#contact", label: "Contact" },
+  { id: "about", href: "#about", label: "About" },
+  { id: "experience", href: "#experience", label: "Experience" },
+  { id: "projects", href: "#projects", label: "Projects" },
+  { id: "credentials", href: "#credentials", label: "Credentials" },
+  // { id: "contact", href: "#contact", label: "Contact" },
 ];
 
 export const Navbar = () => {
@@ -35,7 +35,7 @@ export const Navbar = () => {
       <div className="hidden md:flex items-center gap-1">
         <div className="glass rounded-full px-2 py-1 items-center gap-1 ">
           {navLinks.map((link,index) => (
-            <a href={link.href} key={index} 
+            <a href={link.href} key={link.id} 
             className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground rounded-full hover:bg-surface"
             >{link.label}</a>
           ))}
@@ -60,7 +60,7 @@ export const Navbar = () => {
             <div className="md:hidden glass-strong animate-fade-in ">
             <div className="container mx-auto px-6 flex flex-col py-6 gap-4">
                 {navLinks.map((link,index) => (
-              <a href={link.href} key={index} 
+              <a href={link.href} key={link.id} 
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-lg text-muted-foreground hover:text-foreground py-2"
               >{link.label}</a>

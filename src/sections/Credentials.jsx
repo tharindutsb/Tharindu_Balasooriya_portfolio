@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react"
 
 const credentials = [
   {
+    id: "transcript",
     title: "Bachelor of Science (BSc) in Software Engineering",
     institution: "Sri Lanka Technological Campus",
     type: "Transcript",
@@ -11,6 +12,7 @@ const credentials = [
     images: ["Credentials_Resourses/transcript1.jpg", "Credentials_Resourses/transcript2.jpg"],
   },
   {
+    id: "drs-appreciation",
     title: "DRS project appreciation letter",
     institution: "Sri Lanka Telecom (SLT)",
     type: "Appreciation Letter",
@@ -19,6 +21,7 @@ const credentials = [
     images: ["Credentials_Resourses/SLT_appreciation_letter.jpg"],
   },
   {
+    id: "degree-cert",
     title: "SLTC Degree Certification",
     institution: "Sri Lanka Technological Campus",
     type: "Certification",
@@ -38,8 +41,10 @@ export const Credentials = () => {
   const [panY, setPanY] = useState(0)
   const [isPanning, setIsPanning] = useState(false)
   const [panStart, setPanStart] = useState({ x: 0, y: 0 })
+  const [showHint, setShowHint] = useState(false)
   const imageRef = useRef(null)
   const containerRef = useRef(null)
+  const hintTimeoutRef = useRef(null)
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % credentials.length)
@@ -100,9 +105,35 @@ export const Credentials = () => {
   // Touch events for mobile pinch zoom
   const touchStartDistance = useRef(0)
   const touchStartZoom = useRef(1)
+  const touchStartX = useRef(0)
+  const touchStartY = useRef(0)
 
+  const handleCarouselTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+    touchStartY.current = e.touches[0].clientY
+  }
+
+  const handleCarouselTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX
+    const touchEndY = e.changedTouches[0].clientY
+    const diffX = touchStartX.current - touchEndX
+    const diffY = touchStartY.current - touchEndY
+    const threshold = 50 // minimum swipe distance
+
+    // Detect horizontal swipe and ignore vertical movement
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
+      if (diffX > 0) {
+        nextSlide() // Swipe left = next slide
+      } else {
+        prevSlide() // Swipe right = prev slide
+      }
+    }
+  }
+
+  // Touch events for modal image pinch zoom and single-finger panning
   const handleTouchStart = (e) => {
     if (e.touches.length === 2) {
+      // Pinch zoom
       const touch1 = e.touches[0]
       const touch2 = e.touches[1]
       const distance = Math.hypot(
@@ -111,11 +142,16 @@ export const Credentials = () => {
       )
       touchStartDistance.current = distance
       touchStartZoom.current = zoom
+    } else if (e.touches.length === 1 && zoom > 1) {
+      // Single finger panning when zoomed
+      setIsPanning(true)
+      setPanStart({ x: e.touches[0].clientX - panX, y: e.touches[0].clientY - panY })
     }
   }
 
   const handleTouchMove = (e) => {
     if (e.touches.length === 2) {
+      // Pinch zoom with 2 fingers
       e.preventDefault()
       const touch1 = e.touches[0]
       const touch2 = e.touches[1]
@@ -126,13 +162,40 @@ export const Credentials = () => {
       const scale = distance / touchStartDistance.current
       const newZoom = Math.max(1, Math.min(touchStartZoom.current * scale, 3))
       setZoom(newZoom)
+    } else if (e.touches.length === 1 && isPanning && zoom > 1) {
+      // Single finger panning - prevent default to avoid page scroll
+      e.preventDefault()
+      setPanX(e.touches[0].clientX - panStart.x)
+      setPanY(e.touches[0].clientY - panStart.y)
     }
+  }
+
+  const handleTouchEnd = () => {
+    setIsPanning(false)
   }
 
   useEffect(() => {
     if (selectedCredential) {
       handleResetZoom()
       setSelectedImageIndex(0)
+      setShowHint(true)
+      
+      // Lock body scroll when modal is open
+      document.body.style.overflow = 'hidden'
+      
+      // Hide hint after 3 seconds
+      if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current)
+      hintTimeoutRef.current = setTimeout(() => {
+        setShowHint(false)
+      }, 3000)
+    } else {
+      // Unlock body scroll when modal closes
+      document.body.style.overflow = 'unset'
+    }
+    
+    return () => {
+      if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current)
+      document.body.style.overflow = 'unset'
     }
   }, [selectedCredential])
 
@@ -173,7 +236,7 @@ export const Credentials = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto" onTouchStart={handleCarouselTouchStart} onTouchEnd={handleCarouselTouchEnd}>
           {/* Credential Card */}
           <div className="relative animate-fade-in animation-delay-300">
             <div className="glass rounded-2xl overflow-hidden p-8 md:p-12">
@@ -245,16 +308,22 @@ export const Credentials = () => {
 
             {/* Navigation Buttons */}
             <button
-              onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:-translate-x-20 p-2 rounded-full glass hover:bg-primary/20 transition-all hover:text-primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevSlide();
+              }}
+              className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-20 p-2 rounded-full glass hover:bg-primary/20 transition-all hover:text-primary z-10"
               aria-label="Previous credential"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
 
             <button
-              onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-20 p-2 rounded-full glass hover:bg-primary/20 transition-all hover:text-primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextSlide();
+              }}
+              className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-20 p-2 rounded-full glass hover:bg-primary/20 transition-all hover:text-primary z-10"
               aria-label="Next credential"
             >
               <ChevronRight className="w-6 h-6" />
@@ -263,9 +332,9 @@ export const Credentials = () => {
 
           {/* Dot Navigation */}
           <div className="flex justify-center items-center gap-3 mt-8">
-            {credentials.map((_, index) => (
+            {credentials.map((cred, index) => (
               <button
-                key={index}
+                key={cred.id}
                 onClick={() => goToSlide(index)}
                 className={`transition-all duration-300 rounded-full ${
                   index === currentIndex
@@ -335,7 +404,10 @@ export const Credentials = () => {
             {selectedCredential.images.length > 1 && (
               <div className="absolute top-4 right-16 z-10 flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg border border-border">
                 <button
-                  onClick={prevImageSide}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImageSide();
+                  }}
                   disabled={selectedImageIndex === 0}
                   className="p-1 rounded-lg bg-primary/20 hover:bg-primary/40 text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Previous side"
@@ -347,7 +419,10 @@ export const Credentials = () => {
                   Side {selectedImageIndex + 1}/{selectedCredential.images.length}
                 </span>
                 <button
-                  onClick={nextImageSide}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImageSide();
+                  }}
                   disabled={selectedImageIndex === selectedCredential.images.length - 1}
                   className="p-1 rounded-lg bg-primary/20 hover:bg-primary/40 text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Next side"
@@ -359,14 +434,17 @@ export const Credentials = () => {
             )}
 
             {/* Mobile Zoom Hint */}
-            <div className="absolute bottom-4 left-4 z-10 md:hidden text-xs text-muted-foreground bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg">
-              Pinch to zoom • Drag to pan
-            </div>
+            {showHint && (
+              <div className="absolute bottom-4 right-4 z-10 md:hidden text-xs text-muted-foreground bg-card/0 backdrop-blur-sm px-2 py-2 rounded-lg animate-fade-out">
+                Pinch to zoom • Drag to pan
+              </div>
+            )}
 
             {/* Image Container - scrollable and zoomable */}
             <div
               ref={containerRef}
               className="relative overflow-auto max-h-[95vh] flex items-center justify-center bg-black/50"
+              style={{ touchAction: zoom > 1 ? 'none' : 'auto', cursor: zoom > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
               onWheel={handleWheel}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
@@ -374,7 +452,7 @@ export const Credentials = () => {
               onMouseLeave={handleMouseUp}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
-              style={{ cursor: zoom > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
+              onTouchEnd={handleTouchEnd}
             >
               <img
                 ref={imageRef}

@@ -5,27 +5,34 @@ import { useState, useEffect } from "react";
 
 
 const skills = [
-  "Python",
-  "Java",
-  "HTML",
-  "Flutter",
-  "MongoDB",
-  "SQL",
-  "Tailwind CSS",
-  "GitHub Actions",
-  "Docker",
-  "Django",
-  "AWS",
-  "JavaScript",
-  "React",
-   "Node.js", 
-   "Figma",
-   "Postman",
-   "Flask",
-   "FastAPI",
-   "Machine Learning",
-   "AI Integration",
+  { id: "skill-python", name: "Python" },
+  { id: "skill-java", name: "Java" },
+  { id: "skill-html", name: "HTML" },
+  { id: "skill-flutter", name: "Flutter" },
+  { id: "skill-mongo", name: "MongoDB" },
+  { id: "skill-sql", name: "SQL" },
+  { id: "skill-tailwind", name: "Tailwind CSS" },
+  { id: "skill-gh-actions", name: "GitHub Actions" },
+  { id: "skill-docker", name: "Docker" },
+  { id: "skill-django", name: "Django" },
+  { id: "skill-aws", name: "AWS" },
+  { id: "skill-js", name: "JavaScript" },
+  { id: "skill-react", name: "React" },
+  { id: "skill-node", name: "Node.js" },
+  { id: "skill-figma", name: "Figma" },
+  { id: "skill-postman", name: "Postman" },
+  { id: "skill-flask", name: "Flask" },
+  { id: "skill-fastapi", name: "FastAPI" },
+  { id: "skill-ml", name: "Machine Learning" },
+  { id: "skill-ai", name: "AI Integration" },
 ];
+
+const dots = Array.from({ length: 30 }).map((_, i) => ({
+  id: `dot-${i}`,
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 100}%`,
+  duration: 15 + Math.random() * 20,
+}));
 
 export const Hero = () => {
   const [isNearEnd, setIsNearEnd] = useState(false)
@@ -66,18 +73,19 @@ export const Hero = () => {
       
       {/* Green Dots */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => 
-         <div key={i} className="absolute w-1.5 h-1.5 rounded-full opacity-60"   
-         style={{
-          backgroundColor: "#20B2A6",
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animation: `slow-drift ${
-            15+Math.random() * 20 
-          }s ease-in-out infinite`,
-         }}/>
-        )}
-      </div> 
+        {dots.map((dot) => (
+          <div
+            key={dot.id}
+            className="absolute w-1.5 h-1.5 rounded-full opacity-60"
+            style={{
+              backgroundColor: "#20B2A6",
+              left: dot.left,
+              top: dot.top,
+              animation: `slow-drift ${dot.duration}s ease-in-out infinite`,
+            }}
+          />
+        ))}
+      </div>
       
       {/* content */}
       <div className="container mx-auto px-4 sm:px-6 relative pt-24 md:pt-32 pb-16 md:pb-20 z-10">
@@ -118,11 +126,11 @@ export const Hero = () => {
             <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
               <span className="text-sm text-muted-foreground">Follow Me: </span>
               {[
-                {icon: Github, href: "#"},
-                {icon: Linkedin, href: "#"},
-                {icon: Facebook, href: "#"},
-              ].map((social,idx)=>(
-                <a key={idx} href={social.href} className="p-2 rounded-full glass hover:bg-primary/40 hover:text-primay transition-all duration-300">
+                { id: "social-github", icon: Github, href: "#" },
+                { id: "social-linkedin", icon: Linkedin, href: "#" },
+                { id: "social-facebook", icon: Facebook, href: "#" },
+              ].map((social) => (
+                <a key={social.id} href={social.href} className="p-2 rounded-full glass hover:bg-primary/40 hover:text-primay transition-all duration-300">
                   {<social.icon className="w-5 h-5 transition-all duration-300 hover:text-primary-foreground "/>}
                 </a>
               ))} 
@@ -165,8 +173,8 @@ export const Hero = () => {
           <div className="overflow-x-hidden">
             <div className="flex animate-marquee">
               {[...skills,...skills].map((skill, idx) => (
-                <div key={idx} className="px-8 py-2  flex-shrink-0 ">
-                  <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors ">{skill}</span>
+                <div key={`${skill.id}-${idx}`} className="px-8 py-2  flex-shrink-0 ">
+                  <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors ">{skill.name}</span>
                 </div>
               ))}
             </div> 

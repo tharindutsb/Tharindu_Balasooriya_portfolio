@@ -4,21 +4,25 @@ import { Code2, Lightbulb, Rocket, User } from "lucide-react"
 
 const highlights=[
   {
+    id: "clean-code",
     icon:Code2,
     title:"Clean Code",
     description:"Writing clean, maintainable, and efficient code following best practices and design patterns."
   },
   {
+    id: "performance-optimized",
     icon:Rocket,
     title:"Performance Optimized",
     description:"Optimizing applications for speed and efficiency to deliver the best user experience.",
   },
   {
+    id: "collaboration",
     icon:User,
     title:"Collaboration",
     description:"Working effectively with teams and stakeholders to deliver high-quality software solutions."
   },
   {
+    id: "innovation",
     icon:Lightbulb,
     title:"Innovation",
     description:"Bringing creative ideas to life through innovative problem-solving and cutting-edge technology."
@@ -63,8 +67,8 @@ export const About = () => {
              
             {/* right column - highlights */}
             <div className="grid sm:grid-cols-2 gap-6">
-              {highlights.map((item,idx)=>(
-                <div key={idx} className="glass p-6 rounded-2xl animate-fade-in 
+              {highlights.map( (item,idx)=>(
+                <div key={item.id} className="glass p-6 rounded-2xl animate-fade-in 
                 "
                 style={{
                   animationDelay:`${(idx + 1)*100 }ms`

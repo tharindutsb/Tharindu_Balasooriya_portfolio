@@ -1,6 +1,7 @@
 
 const experiences = [
   {
+    id: "slt-intern",
     period: "June 2024 – December 2024",
     role: "Intern / Trainee Software Engineer",
     company: "Sri Lanka Telecom (SLT – Head Office)",
@@ -9,6 +10,7 @@ const experiences = [
     current: false,
   },
     {
+    id: "bsc-sltc",
     period: "June 2021 – December 2025",
     role: "Bachelor of Science (BSc) in Software Engineering",
     company: "Sri Lanka Technological Campus",
@@ -45,7 +47,7 @@ export const Experience = () => {
           {/* Experience Items */}
           <div className="space-y-12">
           {experiences.map((exp, idx) => (
-            <div key={idx}className="relative grid md:grid-cols-2 gap-8 animate-fade-in animation-delay-300" 
+            <div key={exp.id} className="relative grid md:grid-cols-2 gap-8 animate-fade-in animation-delay-300" 
             style={{
               animationDelay:`${(idx + 1)*150 }ms`
             }}>
@@ -66,7 +68,7 @@ export const Experience = () => {
                   <p className="text-sm text-muted-foreground mt-4">{exp.description}</p>
                   <div className={`flex flex-wrap gap-2 mt-4 ${idx % 2 === 0 ? "md:justify-end" : ""}`}>
                     {exp.technologies.map((tech, techIdx)=>(
-                      <span key={techIdx} 
+                      <span key={`${exp.id}-tech-${techIdx}`} 
                       className="px-3 py-1 bg-surface text-xs rounded-full text-muted-foreground">{tech}</span>
                     ))}
                   </div>

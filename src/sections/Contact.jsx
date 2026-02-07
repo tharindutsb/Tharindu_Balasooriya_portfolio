@@ -5,18 +5,21 @@ import emailjs from "@emailjs/browser"
 
 const ContactInfo = [
   {
+    id: "contact-email",
     icon: Mail,
     label: "Email",
     value: "tharindubalasooriya@gmail.com",
     href: "mailto:tharindubalasooriya@gmail.com",
   },
   {
+    id: "contact-phone",
     icon: Phone,
     label: "Phone",
     value: "+94 72 80 800 60",
     href: "tel:+94728080060",
   },
   {
+    id: "contact-location",
     icon: MapPin,
     label: "Location",
     value: "Colombo, Sri Lanka",
@@ -200,7 +203,7 @@ export const Contact = () => {
               const Icon = item.icon
               return (
                 <a
-                  key={index}
+                  key={item.id}
                   href={item.href}
                   target={item.label === "Location" ? "_blank" : undefined}
                   rel={item.label === "Location" ? "noopener noreferrer" : undefined}

@@ -2,16 +2,16 @@ import { Mail, Phone, MapPin, Github, Linkedin, Twitter, ExternalLink } from "lu
 
 const FooterLinks = {
   Navigation: [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Credentials", href: "#credentials" },
-    { label: "Contact", href: "#contact" },
+    { id: "home", label: "Home", href: "#home" },
+    { id: "about", label: "About", href: "#about" },
+    { id: "projects", label: "Projects", href: "#projects" },
+    { id: "credentials", label: "Credentials", href: "#credentials" },
+    { id: "contact", label: "Contact", href: "#contact" },
   ],
   Social: [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { id: "github", icon: Github, href: "https://github.com", label: "GitHub" },
+    { id: "linkedin", icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { id: "twitter", icon: Twitter, href: "https://twitter.com", label: "Twitter" },
   ],
 }
 
@@ -44,7 +44,7 @@ export const Footer = () => {
                   const Icon = social.icon
                   return (
                     <a
-                      key={idx}
+                      key={social.id}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -64,7 +64,7 @@ export const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-6">Navigation</h4>
             <ul className="space-y-3">
               {FooterLinks.Navigation.map((link, idx) => (
-                <li key={idx}>
+                <li key={link.id}>
                   <a
                     href={link.href}
                     className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm flex items-center gap-2 group"
@@ -82,13 +82,13 @@ export const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-6">Services</h4>
             <ul className="space-y-3">
               {[
-                { label: "Web Development" },
-                { label: "Mobile Development" },
-                { label: "UI/UX Design" },
-                { label: "Consulting" },
-                {label: "AI Integration " },
+                { id: "svc-web", label: "Web Development" },
+                { id: "svc-mobile", label: "Mobile Development" },
+                { id: "svc-uiux", label: "UI/UX Design" },
+                { id: "svc-consult", label: "Consulting" },
+                { id: "svc-ai", label: "AI Integration " },
               ].map((service, idx) => (
-                <li key={idx}>
+                <li key={service.id}>
                   <a
                     href={service.href}
                     className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm flex items-center gap-2 group"
