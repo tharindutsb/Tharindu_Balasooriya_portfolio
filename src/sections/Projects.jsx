@@ -1,9 +1,18 @@
 import { ArrowUpRight, Github } from "lucide-react"
 import {AnimatedBorderButton} from "@/components/AnimatedBorderButton"
 const projects = [
+    {
+    id: "art-gallery",
+    title: "Mr. Gamini Danwatte Art Gallery – Web Platform (Ongoing Project)",
+    description: "This project aims to create a professional online portfolio and digital gallery where visitors can explore categorized artwork collections, learn about the artist’s journey, and inquire about purchasing artworks.",
+    image: "/projects/ART_Gallery.png",
+    tag: ["React","JavaScript","Tailwind CSS","Figma","UI/UX","etc"],
+    // link: "#",
+    github: "https://github.com/tharindutsb/",
+  },
   {
     id: "ceylon-trails",
-    title: "📍 Ceylon Trails",
+    title: "Ceylon Trails",
     description: "Ceylon Trails is an AI-powered travel assistant that creates personalized, time-optimized itineraries for exploring Sri Lanka comfortably and efficiently.",
     image: "/projects/ceylon_trails.jpg",
     tag: ["Flutter","Python","FastAPI","Machine Learning","Pandas","NumPy"],
