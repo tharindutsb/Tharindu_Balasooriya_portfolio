@@ -11,6 +11,15 @@ const projects = [
     github: "https://github.com/tharindutsb/",
   },
   {
+    id: "npk-detection",
+    title: "AI-Based Nutrient Detection in Paddy Crops (Ongoing Project)",
+    description: "A computer vision–based system for identifying NPK nutrient deficiencies and excesses in paddy plants. Built using deep learning and image processing techniques to support smart agriculture and optimized fertilizer usage.",
+    image: "/projects/AI-Based_NPK_detection.png",
+    tag: ["Python","TensorFlow","OpenCV","Pandas","NumPy"],
+    // link: "#",
+    github: "https://github.com/tharindutsb",
+  },
+  {
     id: "ceylon-trails",
     title: "Ceylon Trails",
     description: "Ceylon Trails is an AI-powered travel assistant that creates personalized, time-optimized itineraries for exploring Sri Lanka comfortably and efficiently.",
@@ -28,15 +37,7 @@ const projects = [
     // link: "#",
     github: "https://github.com/tharindutsb/menstrual_health_app",
   },
-  {
-    id: "npk-detection",
-    title: "AI-Based Nutrient Detection in Paddy Crops (Ongoing Project)",
-    description: "A computer vision–based system for identifying NPK nutrient deficiencies and excesses in paddy plants. Built using deep learning and image processing techniques to support smart agriculture and optimized fertilizer usage.",
-    image: "/projects/AI-Based_NPK_detection.png",
-    tag: ["Python","TensorFlow","OpenCV","Pandas","NumPy"],
-    // link: "#",
-    github: "https://github.com/tharindutsb",
-  },
+  
   {
     id: "smart-baby-cradle",
     title: "Smart Baby Cradle",
