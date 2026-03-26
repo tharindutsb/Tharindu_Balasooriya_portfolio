@@ -9,8 +9,8 @@ const FooterLinks = {
     { id: "contact", label: "Contact", href: "#contact" },
   ],
   Social: [
-    { id: "github", icon: Github, href: "https://github.com", label: "GitHub" },
-    { id: "linkedin", icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { id: "github", icon: Github, href: "https://github.com/tharindutsb", label: "GitHub" },
+    { id: "linkedin", icon: Linkedin, href: "https://www.linkedin.com/in/tharindu-balasooriya-4719b722b/", label: "LinkedIn" },
     { id: "twitter", icon: Twitter, href: "https://twitter.com", label: "Twitter" },
   ],
 }
