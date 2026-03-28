@@ -2,6 +2,7 @@ import { Mail, MapPin, Phone, Send, ArrowRight } from "lucide-react"
 import { Button } from "@/components/Button"
 import { useState } from "react"
 import emailjs from "@emailjs/browser"
+import { motion, AnimatePresence } from "framer-motion"
 
 const ContactInfo = [
   {
@@ -87,34 +88,67 @@ export const Contact = () => {
     }
   }
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  }
+
+  const formVariants = {
+    hidden: { opacity: 0, x: -50, filter: "blur(10px)" },
+    visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut", delay: 0.2 } }
+  }
+
+  const infoVariants = {
+    hidden: { opacity: 0, x: 50, filter: "blur(10px)" },
+    visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut", delay: 0.4 } }
+  }
+
+  const statusVariants = {
+    hidden: { opacity: 0, y: 10, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 20 } },
+    exit: { opacity: 0, y: -10, scale: 0.95, transition: { duration: 0.2 } }
+  }
+
   return (
     <section id="contact" className="py-22 relative overflow-hidden">
       {/* Background glows */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute top-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mx-auto max-w-3xl mb-12 sm:mb-16">
-          <span className="text-secondary-foreground text-xs sm:text-sm font-bold tracking-wider uppercase animate-fade-in">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{ visible: { transition: { staggerChildren: 0.1 } }, hidden: {} }}
+          className="text-center mx-auto max-w-3xl mb-12 sm:mb-16"
+        >
+          <motion.span variants={headerVariants} className="text-secondary-foreground text-xs sm:text-sm font-bold tracking-wider uppercase">
             Get In Touch
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          </motion.span>
+          <motion.h2 variants={headerVariants} className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary-foreground">
             Let's Build
             <span className="font-serif italic font-normal text-white"> something amazing together</span>
-          </h2>
-          <p className="text-sm sm:text-base text-muted-foreground animate-fade-in animation-delay-200">
+          </motion.h2>
+          <motion.p variants={headerVariants} className="text-sm sm:text-base text-muted-foreground">
             Have a project in mind or just want to say hi? I'm always open to new opportunities and collaborations.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto animate-fade-in animation-delay-200">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
-          <div className="glass rounded-2xl overflow-hidden p-6 sm:p-8 md:p-10 animate-fade-in animation-delay-300 order-2 md:order-1">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={formVariants}
+            className="glass rounded-3xl overflow-hidden p-6 sm:p-10 order-2 md:order-1 shadow-2xl shadow-primary/5 hover:border-primary/40 transition-colors duration-500"
+          >
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input */}
-              <div>
-                <label htmlFor="name" className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-foreground">
+              <div className="space-y-2">
+                <label htmlFor="name" className="block text-sm font-bold text-foreground tracking-wide ml-1">
                   Full Name
                 </label>
                 <input
@@ -125,13 +159,13 @@ export const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="Your Name"
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none text-sm sm:text-base"
+                  className="w-full px-5 py-4 bg-surface/80 rounded-xl border border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none text-base shadow-inner"
                 />
               </div>
 
               {/* Email Input */}
-              <div>
-                <label htmlFor="email" className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-foreground">
+              <div className="space-y-2">
+                <label htmlFor="email" className="block text-sm font-bold text-foreground tracking-wide ml-1">
                   Email Address
                 </label>
                 <input
@@ -142,13 +176,13 @@ export const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none text-sm sm:text-base"
+                  className="w-full px-5 py-4 bg-surface/80 rounded-xl border border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none text-base shadow-inner"
                 />
               </div>
 
               {/* Message Input */}
-              <div>
-                <label htmlFor="message" className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-foreground">
+              <div className="space-y-2">
+                <label htmlFor="message" className="block text-sm font-bold text-foreground tracking-wide ml-1">
                   Message
                 </label>
                 <textarea
@@ -159,78 +193,106 @@ export const Contact = () => {
                   rows={5}
                   required
                   placeholder="Your message here..."
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-surface/50 rounded-lg border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none resize-none text-sm sm:text-base"
+                  className="w-full px-5 py-4 bg-surface/80 rounded-xl border border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 text-foreground placeholder-muted-foreground outline-none resize-none text-base shadow-inner"
                 />
               </div>
 
               {/* Submit Button */}
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isLoading}
-                className="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-primary-foreground font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group text-sm sm:text-base"
+                className="w-full px-6 py-4 bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-primary-foreground font-bold text-lg tracking-wide rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-primary/25 group"
               >
                 {isLoading ? (
                   <>
-                    <span className="animate-spin">⏳</span>
-                    <span>Sending...</span>
+                    <span className="animate-spin text-xl">⏳</span>
+                    <span>Sending your message...</span>
                   </>
                 ) : (
                   <>
                     <span>Send Message</span>
-                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </>
                 )}
-              </button>
+              </motion.button>
 
               {/* Status Message */}
-              {submitStatus.message && (
-                <div
-                  className={`p-4 rounded-lg text-sm font-medium animate-fade-in ${
-                    submitStatus.type === "success"
-                      ? "bg-primary/20 text-primary border border-primary/30"
-                      : "bg-red-500/20 text-red-400 border border-red-500/30"
-                  }`}
-                >
-                  {submitStatus.message}
-                </div>
-              )}
+              <AnimatePresence>
+                {submitStatus.message && (
+                  <motion.div
+                    variants={statusVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className={`p-4 rounded-xl text-sm font-bold text-center border shadow-md flex items-center justify-center gap-2 ${
+                      submitStatus.type === "success"
+                        ? "bg-green-500/10 text-green-400 border-green-500/30"
+                        : "bg-red-500/10 text-red-400 border-red-500/30"
+                    }`}
+                  >
+                    {submitStatus.type === "success" ? "✨ " : "⚠️ "}
+                    {submitStatus.message}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
-          </div>
+          </motion.div>
 
           {/* Contact Information */}
-          <div className="space-y-4 sm:space-y-6 animate-fade-in animation-delay-400 order-1 md:order-2">
-            {ContactInfo.map((item, index) => {
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15, delayChildren: 0.3 } }
+            }}
+            className="space-y-6 order-1 md:order-2 flex flex-col justify-center"
+          >
+            {ContactInfo.map((item) => {
               const Icon = item.icon
               return (
-                <a
+                <motion.a
+                  variants={infoVariants}
+                  whileHover={{ scale: 1.03, x: 5 }}
                   key={item.id}
                   href={item.href}
                   target={item.label === "Location" ? "_blank" : undefined}
                   rel={item.label === "Location" ? "noopener noreferrer" : undefined}
-                  className="group glass rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-primary/50 transition-all duration-300 flex items-start gap-3 sm:gap-4 cursor-pointer"
+                  className="group glass rounded-2xl p-6 border-transparent hover:border-primary/40 transition-colors duration-300 flex items-center gap-6 cursor-pointer shadow-lg shadow-black/20 hover:shadow-primary/10 bg-card/40"
                 >
-                  <div className="p-2 sm:p-3 rounded-lg bg-primary/20 group-hover:bg-primary/30 transition-colors flex-shrink-0">
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                  <div className="p-4 rounded-xl bg-primary/10 group-hover:bg-primary transition-colors flex-shrink-0 border border-primary/20">
+                    <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">{item.label}</h3>
-                    <p className="text-sm sm:text-base text-muted-foreground group-hover:text-secondary-foreground transition-colors break-words">
+                    <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1 group-hover:text-primary transition-colors">
+                      {item.label}
+                    </h3>
+                    <p className="text-xl font-semibold text-foreground break-words group-hover:text-white transition-colors">
                       {item.value}
                     </p>
                   </div>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
-                </a>
+                  <ArrowRight className="w-6 h-6 text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                </motion.a>
               )
             })}
 
             {/* Additional CTA */}
-            <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-primary/30 bg-primary/5 animate-fade-in animation-delay-500">
-              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Prefer Direct Chat?</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">
-                Connect with me on social media or reach out via any platform that's most convenient for you.
+            <motion.div 
+              variants={infoVariants}
+              whileHover={{ scale: 1.02 }}
+              className="glass rounded-2xl p-8 border border-primary/30 bg-primary/5 mt-4"
+            >
+              <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                Prefer Direct Chat? <span className="text-2xl">👋</span>
+              </h3>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Connect with me on LinkedIn or reach out via any platform that's most convenient for you. I try to respond to all inquiries within 24 hours!
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

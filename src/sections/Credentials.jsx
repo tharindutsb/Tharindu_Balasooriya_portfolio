@@ -1,5 +1,6 @@
 import { ChevronRight, ChevronLeft, X, ZoomIn, ZoomOut, RotateCcw } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 const credentials = [
   {
@@ -29,7 +30,6 @@ const credentials = [
     description: "This official degree certificate from Sri Lanka Technological Campus confirms the successful completion of my Bachelor of Science (BSc) in Software Engineering, awarded with Second Upper Class Honours.",
     images: ["Credentials_Resourses/degree_certificate.jpg"],
   },
-
 ]
 
 export const Credentials = () => {
@@ -118,22 +118,19 @@ export const Credentials = () => {
     const touchEndY = e.changedTouches[0].clientY
     const diffX = touchStartX.current - touchEndX
     const diffY = touchStartY.current - touchEndY
-    const threshold = 50 // minimum swipe distance
+    const threshold = 50
 
-    // Detect horizontal swipe and ignore vertical movement
     if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
       if (diffX > 0) {
-        nextSlide() // Swipe left = next slide
+        nextSlide()
       } else {
-        prevSlide() // Swipe right = prev slide
+        prevSlide()
       }
     }
   }
 
-  // Touch events for modal image pinch zoom and single-finger panning
   const handleTouchStart = (e) => {
     if (e.touches.length === 2) {
-      // Pinch zoom
       const touch1 = e.touches[0]
       const touch2 = e.touches[1]
       const distance = Math.hypot(
@@ -143,7 +140,6 @@ export const Credentials = () => {
       touchStartDistance.current = distance
       touchStartZoom.current = zoom
     } else if (e.touches.length === 1 && zoom > 1) {
-      // Single finger panning when zoomed
       setIsPanning(true)
       setPanStart({ x: e.touches[0].clientX - panX, y: e.touches[0].clientY - panY })
     }
@@ -151,7 +147,6 @@ export const Credentials = () => {
 
   const handleTouchMove = (e) => {
     if (e.touches.length === 2) {
-      // Pinch zoom with 2 fingers
       e.preventDefault()
       const touch1 = e.touches[0]
       const touch2 = e.touches[1]
@@ -163,7 +158,6 @@ export const Credentials = () => {
       const newZoom = Math.max(1, Math.min(touchStartZoom.current * scale, 3))
       setZoom(newZoom)
     } else if (e.touches.length === 1 && isPanning && zoom > 1) {
-      // Single finger panning - prevent default to avoid page scroll
       e.preventDefault()
       setPanX(e.touches[0].clientX - panStart.x)
       setPanY(e.touches[0].clientY - panStart.y)
@@ -180,16 +174,13 @@ export const Credentials = () => {
       setSelectedImageIndex(0)
       setShowHint(true)
       
-      // Lock body scroll when modal is open
       document.body.style.overflow = 'hidden'
       
-      // Hide hint after 3 seconds
       if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current)
       hintTimeoutRef.current = setTimeout(() => {
         setShowHint(false)
       }, 3000)
     } else {
-      // Unlock body scroll when modal closes
       document.body.style.overflow = 'unset'
     }
     
@@ -216,271 +207,332 @@ export const Credentials = () => {
   return (
     <section id="credentials" className="py-22 relative overflow-hidden">
       {/* bg glows */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute top-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 w-full">
         {/* section header */}
-        <div className="text-center mx-auto max-w-3xl mb-16">
-          <span className="text-secondary-foreground text-sm font-bold tracking-wider uppercase animate-fade-in animation-delay-100">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.2, duration: 0.6 } }
+          }}
+          className="text-center mx-auto max-w-3xl mb-16"
+        >
+          <motion.span 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="text-secondary-foreground text-sm font-bold tracking-wider uppercase"
+          >
             Credentials & Achievements
-          </span>
-          <h2 className="font-serif italic font-normal text-white text-4xl md:text-5xl mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          </motion.span>
+          <motion.h2 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="font-serif italic font-normal text-white text-4xl md:text-5xl mt-4 mb-6 text-secondary-foreground"
+          >
             My Academic and Professional
-            <span className="
-            text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground"> Journey</span>
-          </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
+            <span className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary-foreground"> Journey</span>
+          </motion.h2>
+          <motion.p 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="text-muted-foreground leading-relaxed text-lg"
+          >
             Official recognition of my educational achievements and professional certifications.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Carousel Container */}
-        <div className="max-w-7xl mx-auto" onTouchStart={handleCarouselTouchStart} onTouchEnd={handleCarouselTouchEnd}>
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-7xl mx-auto px-2 md:px-0" 
+          onTouchStart={handleCarouselTouchStart} 
+          onTouchEnd={handleCarouselTouchEnd}
+        >
           {/* Credential Card */}
-          <div className="relative animate-fade-in animation-delay-300">
-            <div className="glass rounded-2xl overflow-hidden p-8 md:p-12">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                {/* Image */}
-                <div className="relative group cursor-pointer" onClick={() => setSelectedCredential(credentials[currentIndex])}>
-                  <div className="relative overflow-hidden rounded-xl aspect-square">
-                    <img
-                      src={credentials[currentIndex].images[0]}
-                      alt={credentials[currentIndex].title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent opacity-40" />
-                    
-                    {/* Click to expand hint */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="text-center">
-                        <div className="bg-primary/80 rounded-full p-3 mb-2">
-                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
-                          </svg>
-                        </div>
-                        <p className="text-white text-sm font-semibold">Click to expand</p>
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={currentIndex}
+                initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -50, scale: 0.95 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="glass rounded-2xl overflow-hidden p-8 md:p-12 shadow-2xl shadow-primary/10 border border-primary/20 bg-card/60"
+              >
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  {/* Image */}
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="relative group cursor-pointer" 
+                    onClick={() => setSelectedCredential(credentials[currentIndex])}
+                  >
+                    <div className="relative overflow-hidden rounded-xl aspect-square bg-black shadow-lg">
+                      <img
+                        src={credentials[currentIndex].images[0]}
+                        alt={credentials[currentIndex].title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-80" />
+                      
+                      {/* Click to expand hint */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <motion.div 
+                          whileHover={{ scale: 1.1 }}
+                          className="text-center"
+                        >
+                          <div className="bg-primary shadow-[0_0_20px_rgba(32,178,166,0.5)] rounded-full p-4 mb-2 flex justify-center">
+                            <ZoomIn className="w-8 h-8 text-primary-foreground" />
+                          </div>
+                          <p className="text-white text-sm font-semibold tracking-wide drop-shadow-md">Click to view full</p>
+                        </motion.div>
                       </div>
+
+                      {/* Multiple sides indicator */}
+                      {credentials[currentIndex].images.length > 1 && (
+                        <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-md z-10">
+                          {credentials[currentIndex].images.length} Pages
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="space-y-6">
+                    <div className="inline-block">
+                      <span className="px-4 py-1.5 bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider rounded-full border border-primary/40 shadow-[0_0_10px_rgba(32,178,166,0.1)]">
+                        {credentials[currentIndex].type}
+                      </span>
                     </div>
 
-                    {/* Multiple sides indicator */}
-                    {credentials[currentIndex].images.length > 1 && (
-                      <div className="absolute top-3 right-3 bg-primary/90 text-primary-foreground text-xs font-bold px-2 py-1 rounded-full">
-                        {credentials[currentIndex].images.length} sides
-                      </div>
-                    )}
+                    <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                      {credentials[currentIndex].title}
+                    </h3>
+
+                    <h4 className="text-primary font-bold text-xl drop-shadow-sm">
+                      {credentials[currentIndex].institution}
+                    </h4>
+
+                    <p className="inline-flex items-center px-3 py-1 bg-surface/80 rounded-lg text-muted-foreground text-sm font-semibold">
+                      {credentials[currentIndex].date}
+                    </p>
+
+                    <p className="text-muted-foreground leading-relaxed text-lg">
+                      {credentials[currentIndex].description}
+                    </p>
+
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setSelectedCredential(credentials[currentIndex])}
+                      className="mt-6 px-8 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/80 transition-all font-bold tracking-wide shadow-lg shadow-primary/20 flex items-center gap-2"
+                    >
+                      <ZoomIn className="w-5 h-5"/>
+                      View Full Document
+                    </motion.button>
                   </div>
                 </div>
+              </motion.div>
+            </AnimatePresence>
 
-                {/* Content */}
-                <div className="space-y-4">
-                  <div className="inline-block">
-                    <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-semibold rounded-full border border-primary/30">
-                      {credentials[currentIndex].type}
-                    </span>
-                  </div>
-
-                  <h3 className="text-3xl font-bold text-white">
-                    {credentials[currentIndex].title}
-                  </h3>
-
-                  <p className="text-secondary-foreground font-semibold">
-                    {credentials[currentIndex].institution}
-                  </p>
-
-                  <p className="text-muted-foreground text-sm">
-                    {credentials[currentIndex].date}
-                  </p>
-
-                  <p className="text-foreground leading-relaxed">
-                    {credentials[currentIndex].description}
-                  </p>
-
-                  <button
-                    onClick={() => setSelectedCredential(credentials[currentIndex])}
-                    className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/80 transition-colors font-semibold"
-                  >
-                    View Full Size
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Navigation Buttons */}
-            <button
+            {/* Navigation Buttons for Carousel */}
+            <motion.button
+              whileHover={{ scale: 1.1, backgroundColor: "rgba(32,178,166,0.2)" }}
+              whileTap={{ scale: 0.9 }}
               onClick={(e) => {
                 e.stopPropagation();
                 prevSlide();
               }}
-              className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-20 p-2 rounded-full glass hover:bg-primary/20 transition-all hover:text-primary z-10"
+              className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 w-14 h-14 items-center justify-center rounded-full glass hover:text-primary z-10 border border-border/50 shadow-xl"
               aria-label="Previous credential"
             >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
+              <ChevronLeft className="w-8 h-8" />
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1, backgroundColor: "rgba(32,178,166,0.2)" }}
+              whileTap={{ scale: 0.9 }}
               onClick={(e) => {
                 e.stopPropagation();
                 nextSlide();
               }}
-              className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-20 p-2 rounded-full glass hover:bg-primary/20 transition-all hover:text-primary z-10"
+              className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 w-14 h-14 items-center justify-center rounded-full glass hover:text-primary z-10 border border-border/50 shadow-xl"
               aria-label="Next credential"
             >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+              <ChevronRight className="w-8 h-8" />
+            </motion.button>
           </div>
 
           {/* Dot Navigation */}
-          <div className="flex justify-center items-center gap-3 mt-8">
+          <div className="flex justify-center items-center gap-4 mt-8">
             {credentials.map((cred, index) => (
               <button
                 key={cred.id}
                 onClick={() => goToSlide(index)}
                 className={`transition-all duration-300 rounded-full ${
                   index === currentIndex
-                    ? "bg-primary w-3 h-3"
-                    : "bg-muted hover:bg-muted-foreground w-2 h-2"
+                    ? "bg-primary w-4 h-4 shadow-[0_0_10px_rgba(32,178,166,0.5)]"
+                    : "bg-surface w-2.5 h-2.5 hover:bg-muted-foreground"
                 }`}
                 aria-label={`Go to credential ${index + 1}`}
               />
             ))}
           </div>
-
-          {/* Slide Counter */}
-          <div className="text-center mt-6 text-muted-foreground text-sm">
-            {currentIndex + 1} / {credentials.length}
-          </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Modal/Popup for Full Image */}
-      {selectedCredential && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80" onClick={() => setSelectedCredential(null)}>
-          <div 
-            className="relative w-auto max-h-[95vh] bg-card rounded-2xl overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {selectedCredential && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/95 backdrop-blur-sm" 
+            onClick={() => setSelectedCredential(null)}
           >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedCredential(null)}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-primary hover:bg-primary/80 transition-colors shadow-lg"
-              aria-label="Close"
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-auto max-h-[95vh] bg-surface rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="w-6 h-6 text-primary-foreground" />
-            </button>
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedCredential(null)}
+                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 hover:bg-red-500 transition-colors shadow-lg border border-white/20 group"
+                aria-label="Close"
+              >
+                <X className="w-6 h-6 text-white group-hover:text-white" />
+              </button>
 
-            {/* Zoom Controls - Desktop */}
-            <div className="absolute top-4 left-4 z-10 hidden md:flex gap-2 bg-card/80 backdrop-blur-sm p-2 rounded-lg border border-border">
-              <button
-                onClick={handleZoomIn}
-                className="p-2 rounded-lg bg-primary/20 hover:bg-primary/40 text-primary transition-colors"
-                aria-label="Zoom in"
-                title="Zoom In (scroll wheel)"
-              >
-                <ZoomIn className="w-5 h-5" />
-              </button>
-              <button
-                onClick={handleZoomOut}
-                className="p-2 rounded-lg bg-primary/20 hover:bg-primary/40 text-primary transition-colors"
-                aria-label="Zoom out"
-                title="Zoom Out (scroll wheel)"
-              >
-                <ZoomOut className="w-5 h-5" />
-              </button>
-              <div className="flex items-center px-3 py-2 text-sm font-semibold text-foreground border-l border-border/50 ml-2">
-                {Math.round(zoom * 100)}%
-              </div>
-              <button
-                onClick={handleResetZoom}
-                className="p-2 rounded-lg bg-primary/20 hover:bg-primary/40 text-primary transition-colors"
-                aria-label="Reset zoom"
-                title="Reset"
-              >
-                <RotateCcw className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Multiple Sides Navigation - Top Right */}
-            {selectedCredential.images.length > 1 && (
-              <div className="absolute top-4 right-16 z-10 flex items-center gap-2 bg-card/80 backdrop-blur-sm px-3 py-2 rounded-lg border border-border">
+              {/* Zoom Controls - Desktop */}
+              <div className="absolute top-4 left-4 z-20 hidden md:flex gap-2 bg-black/50 backdrop-blur-xl p-2 rounded-xl border border-white/10 shadow-lg">
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImageSide();
-                  }}
-                  disabled={selectedImageIndex === 0}
-                  className="p-1 rounded-lg bg-primary/20 hover:bg-primary/40 text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  aria-label="Previous side"
-                  title="Previous side"
+                  onClick={handleZoomIn}
+                  className="p-2 rounded-lg bg-surface/80 hover:bg-primary hover:text-white text-muted-foreground transition-all duration-300"
+                  aria-label="Zoom in"
+                  title="Zoom In (scroll wheel)"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ZoomIn className="w-5 h-5" />
                 </button>
-                <span className="text-xs font-semibold text-foreground min-w-[40px] text-center">
-                  Side {selectedImageIndex + 1}/{selectedCredential.images.length}
-                </span>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImageSide();
-                  }}
-                  disabled={selectedImageIndex === selectedCredential.images.length - 1}
-                  className="p-1 rounded-lg bg-primary/20 hover:bg-primary/40 text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  aria-label="Next side"
-                  title="Next side"
+                  onClick={handleZoomOut}
+                  className="p-2 rounded-lg bg-surface/80 hover:bg-primary hover:text-white text-muted-foreground transition-all duration-300"
+                  aria-label="Zoom out"
+                  title="Zoom Out (scroll wheel)"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ZoomOut className="w-5 h-5" />
+                </button>
+                <div className="flex items-center px-4 py-2 text-sm font-bold text-white border-l border-white/20 ml-2">
+                  {Math.round(zoom * 100)}%
+                </div>
+                <button
+                  onClick={handleResetZoom}
+                  className="p-2 rounded-lg bg-surface/80 hover:bg-primary hover:text-white text-muted-foreground transition-all duration-300"
+                  aria-label="Reset zoom"
+                  title="Reset"
+                >
+                  <RotateCcw className="w-5 h-5" />
                 </button>
               </div>
-            )}
 
-            {/* Mobile Zoom Hint */}
-            {showHint && (
-              <div className="absolute bottom-4 right-4 z-10 md:hidden text-xs text-muted-foreground bg-card/0 backdrop-blur-sm px-2 py-2 rounded-lg animate-fade-out">
-                Pinch to zoom • Drag to pan
-              </div>
-            )}
-
-            {/* Image Container - scrollable and zoomable */}
-            <div
-              ref={containerRef}
-              className="relative overflow-auto max-h-[95vh] flex items-center justify-center bg-black/50"
-              style={{ touchAction: zoom > 1 ? 'none' : 'auto', cursor: zoom > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
-              onWheel={handleWheel}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <img
-                ref={imageRef}
-                src={selectedCredential.images[selectedImageIndex]}
-                alt={`${selectedCredential.title} - Side ${selectedImageIndex + 1}`}
-                className="h-auto max-h-[95vh] w-auto transition-transform duration-200 select-none"
-                style={{
-                  transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`,
-                }}
-                draggable={false}
-              />
-            </div>
-
-            {/* Info Footer */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-card via-card/80 to-transparent p-6">
-              <h3 className="text-xl font-bold text-white mb-1">
-                {selectedCredential.title}
-                {selectedCredential.images.length > 1 && (
-                  <span className="text-primary text-sm ml-2">
-                    • Side {selectedImageIndex + 1}
+              {/* Multiple Sides Navigation - Top Right */}
+              {selectedCredential.images.length > 1 && (
+                <div className="absolute top-4 right-16 z-20 flex items-center gap-3 bg-black/50 backdrop-blur-xl px-4 py-2 rounded-xl border border-white/10 shadow-lg">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prevImageSide();
+                    }}
+                    disabled={selectedImageIndex === 0}
+                    className="p-1.5 rounded-lg bg-surface hover:bg-primary hover:text-white text-foreground transition-colors disabled:opacity-30 disabled:hover:bg-surface disabled:hover:text-foreground disabled:cursor-not-allowed"
+                    aria-label="Previous side"
+                    title="Previous side"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <span className="text-sm font-bold text-white min-w-[50px] text-center tracking-widest">
+                    {selectedImageIndex + 1}/{selectedCredential.images.length}
                   </span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nextImageSide();
+                    }}
+                    disabled={selectedImageIndex === selectedCredential.images.length - 1}
+                    className="p-1.5 rounded-lg bg-surface hover:bg-primary hover:text-white text-foreground transition-colors disabled:opacity-30 disabled:hover:bg-surface disabled:hover:text-foreground disabled:cursor-not-allowed"
+                    aria-label="Next side"
+                    title="Next side"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              )}
+
+              {/* Mobile Zoom Hint */}
+              <AnimatePresence>
+                {showHint && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 md:hidden text-xs font-semibold text-white bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-lg"
+                  >
+                    Pinch to zoom • Drag to pan
+                  </motion.div>
                 )}
-              </h3>
-              <p className="text-secondary-foreground text-sm">{selectedCredential.institution}</p>
-            </div>
-          </div>
-        </div>
-      )}
+              </AnimatePresence>
+
+              {/* Image Container - scrollable and zoomable */}
+              <div
+                ref={containerRef}
+                className="relative overflow-auto max-h-[95vh] rounded-3xl flex items-center justify-center bg-background/50"
+                style={{ touchAction: zoom > 1 ? 'none' : 'auto', cursor: zoom > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
+                onWheel={handleWheel}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                <motion.img
+                  layoutId={`credential-img-${selectedCredential.id}`}
+                  ref={imageRef}
+                  src={selectedCredential.images[selectedImageIndex]}
+                  alt={`${selectedCredential.title} - Side ${selectedImageIndex + 1}`}
+                  className="h-auto max-h-[95vh] w-auto transition-transform duration-200 select-none shadow-2xl"
+                  style={{
+                    transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`,
+                  }}
+                  draggable={false}
+                />
+              </div>
+
+              {/* Info Footer */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-6 pt-20 pointer-events-none">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-1 drop-shadow-md">
+                  {selectedCredential.title}
+                  {selectedCredential.images.length > 1 && (
+                    <span className="text-primary text-sm ml-3 font-semibold px-2 py-0.5 bg-primary/20 rounded border border-primary/30">
+                      Page {selectedImageIndex + 1}
+                    </span>
+                  )}
+                </h3>
+                <p className="text-secondary-foreground text-sm font-semibold tracking-wide drop-shadow-sm">{selectedCredential.institution}</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

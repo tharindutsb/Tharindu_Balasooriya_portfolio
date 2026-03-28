@@ -1,6 +1,5 @@
 import { Code2, Lightbulb, Rocket, User } from "lucide-react"
-
-
+import { motion } from "framer-motion"
 
 const highlights=[
   {
@@ -28,60 +27,109 @@ const highlights=[
     description:"Bringing creative ideas to life through innovative problem-solving and cutting-edge technology."
   }
 ]
+
 export const About = () => {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  }
+
+  const itemFadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } 
+    },
+  }
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      transition: { duration: 0.5, ease: "easeOut" } 
+    },
+  }
+
   return (  
     <section id="about" className="py-22 relative overflow-hidden">
          <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* left column */}
-            <div className="space-y-8">
-              <div className="animate-fade-in">
-                <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase">
-              About Me
-             </span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight animate-fade-in delay-100 text-secondary-foreground">
-              Building the future, 
-              <span className="font-serif italic font-normal text-white"> one component at a time.</span>
-               
-            </h2>
-            <div className="space-y-4 text-muted-foreground animate-fade-in animation-delay-200">
-              <p>
-                I’m a passionate software engineer who specializes in building modern, scalable applications with a strong focus on React-based frontends and robust backend systems. My journey began with curiosity about how applications work end to end, and it has grown into a drive to create meaningful digital products.
-              </p>
-              <p>
-                I specialize in React, Java, Python, MongoDB, and backend API development, crafting everything from responsive user interfaces to powerful server-side solutions. I also enjoy integrating AI-powered features that enhance functionality, automation, and user experience.
-              </p>
-              <p>
-                When I’m not coding, you’ll find me exploring new technologies, experimenting with AI, and continuously sharpening my skills to stay ahead in the ever-evolving tech landscape.
-              </p>
-            </div>
-          
-          <div className="glass rounded-2xl p-6 glow-border animate-fade-in animation-delay-300">
-            <p className="text-lg font-medium italic text-foreground ">
-              "My mission is to grow as a confident and knowledgeable Software Engineer, deliver delightful work with real impact, and build products that users genuinely love, while continuously learning and improving my skills every day."
-            </p>
-          </div>
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="space-y-8"
+            >
+              <motion.div variants={itemFadeUp}>
+                <span className="text-secondary-foreground text-sm font-bold tracking-wider uppercase">
+                  About Me
+                </span>
+              </motion.div>
+              <motion.h2 
+                variants={itemFadeUp}
+                className="text-4xl md:text-5xl font-bold leading-tight text-secondary-foreground"
+              >
+                Building the future, 
+                <span className="font-serif italic font-normal text-white"> one component at a time.</span>
+              </motion.h2>
 
-              </div>
+              <motion.div 
+                variants={itemFadeUp}
+                className="space-y-4 text-muted-foreground leading-relaxed text-lg"
+              >
+                <p>
+                  I’m a passionate software engineer who specializes in building modern, scalable applications with a strong focus on React-based frontends and robust backend systems. My journey began with curiosity about how applications work end to end, and it has grown into a drive to create meaningful digital products.
+                </p>
+                <p>
+                  I specialize in React, Java, Python, MongoDB, and backend API development, crafting everything from responsive user interfaces to powerful server-side solutions. I also enjoy integrating AI-powered features that enhance functionality, automation, and user experience.
+                </p>
+                <p>
+                  When I’m not coding, you’ll find me exploring new technologies, experimenting with AI, and continuously sharpening my skills to stay ahead in the ever-evolving tech landscape.
+                </p>
+              </motion.div>
+            
+              <motion.div 
+                variants={itemFadeUp}
+                className="glass rounded-2xl p-6 glow-border relative overflow-hidden group"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"/>
+                <p className="text-lg font-medium italic text-foreground relative z-10">
+                  "My mission is to grow as a confident and knowledgeable Software Engineer, deliver delightful work with real impact, and build products that users genuinely love, while continuously learning and improving my skills every day."
+                </p>
+              </motion.div>
+            </motion.div>
              
             {/* right column - highlights */}
-            <div className="grid sm:grid-cols-2 gap-6">
-              {highlights.map( (item,idx)=>(
-                <div key={item.id} className="glass p-6 rounded-2xl animate-fade-in 
-                "
-                style={{
-                  animationDelay:`${(idx + 1)*100 }ms`
-                }}
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="grid sm:grid-cols-2 gap-6"
+            >
+              {highlights.map((item, idx) => (
+                <motion.div 
+                  key={item.id} 
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.05, translateY: -5 }}
+                  className="glass p-6 rounded-2xl hover:border-primary/50 transition-colors group cursor-default shadow-sm hover:shadow-primary/20"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 hover:bg-primary/30">
-                    <item.icon className="w-6 h-6 text-primary"/>
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary transition-colors duration-300">
+                    <item.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300"/>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
-                </div>
+                  <h3 className="text-lg font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
             
           </div>
          </div>
