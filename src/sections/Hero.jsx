@@ -120,11 +120,12 @@ export const Hero = () => {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-              <Button size="lg" className="group w-full sm:w-auto text-base hover:shadow-lg hover:shadow-primary/25 transition-all duration-300">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row flex-wrap items-center sm:items-start md:items-center gap-4 sm:gap-6">
+              <Button size="lg" className="group w-full sm:w-auto shrink-0 text-base hover:shadow-lg hover:shadow-primary/25 transition-all duration-300">
                 Get In Touch <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
               <AnimatedBorderButton
+                className="w-full sm:w-auto shrink-0 text-base"
                 onClick={() => {
                   const url = "/CV/T.S.Balasooriya_CV.pdf"
                   const a = document.createElement("a")

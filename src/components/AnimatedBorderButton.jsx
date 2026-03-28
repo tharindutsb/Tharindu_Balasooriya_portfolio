@@ -1,13 +1,13 @@
 import { Download } from "lucide-react";
 
-export const AnimatedBorderButton = ({ children, ...props }) => {
+export const AnimatedBorderButton = ({ children, className = "", ...props }) => {
   return (
     <button
       {...props}
       // href={href}
       // download={download}
       // aria-label="Download CV"
-      className="group relative bg-transparent border border-border text-foreground hover:border-primary/50 transition-all duration-1000 px-8 py-4 text-lg font-medium hover:border-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-full overflow-visible animated-border"
+      className={`group relative bg-transparent border border-border text-foreground hover:border-primary/50 transition-all duration-1000 px-8 py-4 text-lg font-medium whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-full overflow-visible animated-border ${className}`}
     >
       {/* Animated SVG Border */}
       <svg
