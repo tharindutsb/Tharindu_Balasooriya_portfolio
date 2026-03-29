@@ -261,7 +261,9 @@ export const Contact = () => {
                   href={item.href}
                   target={item.label === "Location" ? "_blank" : undefined}
                   rel={item.label === "Location" ? "noopener noreferrer" : undefined}
-                  className="group glass rounded-2xl p-6 border-transparent hover:border-primary/40 transition-colors duration-300 flex items-center gap-6 cursor-pointer shadow-lg shadow-black/20 hover:shadow-primary/10 bg-card/40"
+                  className="group glass rounded-2xl p-6 border-transparent hover:border-primary/40 transition-colors duration-300 
+flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 
+cursor-pointer shadow-lg shadow-black/20 hover:shadow-primary/10 bg-card/40"
                 >
                   <div className="p-4 rounded-xl bg-primary/10 group-hover:bg-primary transition-colors flex-shrink-0 border border-primary/20">
                     <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
