@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 const experiences = [
   {
     id: "slt-intern",
-    period: "June 2024 – December 2024",
+    period: "December 2024 – June 2025",
     role: "Intern / Trainee Software Engineer",
     company: "Sri Lanka Telecom (SLT – Head Office)",
     description: "Worked as an Intern / Trainee Software Engineer at Sri Lanka Telecom (SLT – Head Office), contributing to enterprise systems including a Debt Recovery System and an Incident Management platform. Built backend APIs, data pipelines, and full-stack features using Python, FastAPI, and the MERN stack to support real-world business workflows.",

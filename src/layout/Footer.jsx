@@ -106,14 +106,14 @@ export const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-6">Contact</h4>
             <div className="space-y-4">
               <a
-                href="mailto:tharindubalasooriya@gmail.com"
+                href="mailto:tharindutsb@gmail.com"
                 className="flex items-start gap-3 group"
               >
                 <Mail className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-muted-foreground">Email</p>
                   <p className="text-sm text-foreground group-hover:text-primary transition-colors">
-                    tharindubalasooriya@gmail.com
+                    tharindutsb@gmail.com
                   </p>
                 </div>
               </a>
