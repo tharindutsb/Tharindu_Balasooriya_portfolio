@@ -2,6 +2,16 @@ import { motion } from "framer-motion"
 
 const experiences = [
   {
+    id: "kode-eye-co-founder",
+    period: "April 2026 – Present",
+    role: "Co-Founder & Lead Software Engineer",
+    company: "Kode-Eye",
+    description: "As a Co-Founder and Lead Engineer at Kode Eye, I lead the technical vision and infrastructure development for high-performance digital ecosystems. Our mission is Engineering Without Compromise, delivering global-quality software solutions that prioritize scalability, security, and technical integrity.",
+    technologies: ["Custom Logic", "Web Platforms", "AI Integration", "Dashboards", "Data Systems", "Next Gen Technologies", "Microservices", "Cloud-Native Solutions", "Agile Methodologies", "Innovation-Driven Development"],
+    current: true,
+  },
+  
+  {
     id: "slt-intern",
     period: "December 2024 – June 2025",
     role: "Intern / Trainee Software Engineer",
@@ -19,6 +29,7 @@ const experiences = [
     technologies: ["Python", "Java", "JavaScript", "C", "Flutter", "MongoDB", "SQL", "AWS", "Machine Learning", "AI Integration", "Data Structures", "Algorithms", "Git", "Agile Methodologies", "Team Collaboration"],
     current: false,
   },
+
 ]
 
 export const Experience = () => {
